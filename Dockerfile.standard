@@ -1,0 +1,20 @@
+FROM python:3.7-slim
+
+# Print architecture
+RUN dpkg --print-architecture
+
+# Install OpenCV's runtime dependencies
+RUN apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  libglib2.0-0 \
+  libsm6 \
+  libxrender-dev \
+  libxext6 \
+  && rm -rf /var/lib/apt/lists/* && apt-get clean && apt-get autoclean && apt-get autoremove
+
+# Install OpenCV using pip
+RUN pip install --no-cache-dir --disable-pip-version-check opencv-python==4.1.0.25
+
+# Ensure that opencv and its dependencies
+# are correctly installed
+RUN python -c 'import cv2'
