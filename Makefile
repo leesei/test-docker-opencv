@@ -1,4 +1,7 @@
-docker: headless standard
+docker: distroless headless standard
+
+distroless:
+	docker build -t test-opencv-distroless:latest -f Dockerfile.distroless .
 
 headless:
 	docker build -t test-opencv-headless:latest -f Dockerfile.headless .
